@@ -2,12 +2,15 @@ from flask import (
     Flask,
     request
 )
+from app.database import task
 
 app = Flask(__name__)
+#ReST
+# An architectural design pattern for building network-connected system.
 
 @app.get("/tasks")
 def get_all_tasks():
-    tasks = tasks.scan()
+    tasks = task.scan()
     out = {
         "tasks": tasks,
         "ok": True
@@ -23,15 +26,15 @@ def get_task_by_id(pk):
     }
     return out
 
-@app.post ("/tasks") 
+@app.post("/tasks") 
 def create_task():
-    task_data = request. json
-    task. insert (task_data)
+    task_data = request.json
+    task.insert(task_data)
     return "", 204
 
-@app.put ("/tasks/<int:pk>/") 
+@app.put("/tasks/<int:pk>/") 
 def update_task_by_id(pk):
-    task_data = request. json
+    task_data = request.json
     task.update_by_id(task_data, pk)
     return "", 204
 
